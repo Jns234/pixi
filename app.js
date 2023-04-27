@@ -174,3 +174,4 @@ app.ticker.add(() => {
   connection.moveTo(gate1.outputX, gate1.outputY);
   connection.lineTo(gate2.inputX, gate2.inputY);
 });
+

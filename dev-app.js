@@ -33,6 +33,7 @@ gateName.buttonMode = true;
 const input1 = new PIXI.Graphics();
 input1.beginFill(0xff0000);
 input1.active = false;
+input1.selected = false;
 input1.name = "input1"
 input1.drawRect(0, 0, 50, 50);
 input1.position.set(0, 20);
@@ -40,6 +41,7 @@ input1.position.set(0, 20);
 const input2 = new PIXI.Graphics();
 input2.beginFill(0xff0000);
 input2.active = false;
+input2.selected = false;
 input2.name = "input2";
 input2.drawRect(0, 0, 50, 50);
 input2.position.set(0, 100)
@@ -89,6 +91,7 @@ pos1.drawRect(0, 0, 50, 50);
 pos1.position.set(100, 200);
 pos1.active = true
 pos1.interactive = true;
+pos1.selected = false;
 pos1.buttonMode = true;
 pos1.name = "pos1"
 
@@ -100,6 +103,7 @@ pos2.drawRect(0, 0, 50, 50);
 pos2.position.set(100, 400);
 pos2.active = true
 pos2.interactive = true;
+pos2.selected = false;
 pos2.buttonMode = true;
 pos2.name = "pos2"
 
@@ -112,6 +116,7 @@ pos3.drawRect(0, 0, 50, 50);
 pos3.position.set(100, 600);
 pos3.active = true
 pos3.interactive = true;
+pos3.selected = false;
 pos3.buttonMode = true;
 pos3.name = "pos3"
 
@@ -125,6 +130,7 @@ pos4.drawRect(0, 0, 50, 50);
 pos4.position.set(100, 800);
 pos4.active = true
 pos4.interactive = true;
+pos4.selected = false;
 pos4.buttonMode = true;
 pos4.name = "pos4"
 
@@ -218,33 +224,50 @@ function drawLine(x1, y1, x2, y2, color, thickness) {
     return line;ˇ
   }
 
-let firstMouseDown = true;
+// let firstMouseDown = true;
 let firstX, firstY, secondX, secondY;
 const posList = [pos1, pos2, pos3, pos4];
 const inputList = [input1, input2]
 
+const allObj = [...posList, ...inputList]
+
+function colorSelected(obj) {
+    console.log(obj.name)
+    obj.clear();
+    obj.beginFill(0x0000FF);
+    obj.selected = true
+    obj.drawRect(0, 0, 50, 50);
+    obj.endFill();
+}
 
 document.addEventListener("mousedown", (event) => {
     
- 
-    posList.forEach(pos => {
-        pos.interactive = true;
-        pos.on('click', () => {
-        //   console.log(`PIXI Graphics object clicked: ${pos.name}, ${pos.y}`);
-          firstClick()
-        });
-    });
-    inputList.forEach(input => {
-        input.interactive = true;
-        input.on('click', () => {
-            // console.log(`PIXI Graphics object clicked: ${input.name}, ${input.y}`);
-            input.active = true;
-            // logTwoMouseClickPositions('1')
-            secondClick()
-            checkInputStates()
-            logBothClicks()
-        });
-      });
+    allObj.forEach(obj => {
+        obj.interactive = true;
+        obj.on('click', () => {
+            colorSelected(obj)
+        })
+    }
+
+    )
+    // posList.forEach(pos => {
+    //     pos.interactive = true;
+    //     pos.on('click', () => {
+    //     //   console.log(`PIXI Graphics object clicked: ${pos.name}, ${pos.y}`);
+    //       firstClick()
+    //     });
+    // });
+    // inputList.forEach(input => {
+    //     input.interactive = true;
+    //     input.on('click', () => {
+    //         // console.log(`PIXI Graphics object clicked: ${input.name}, ${input.y}`);
+    //         input.active = true;
+    //         // logTwoMouseClickPositions('1')
+    //         secondClick()
+    //         checkInputStates()
+    //         logBothClicks()
+    //     });
+    //   });
 }
 );
 
@@ -286,4 +309,7 @@ async function firstClick() {
 
 }
   
-  
+
+function selected() {
+
+}
